@@ -59,18 +59,18 @@ const userModel = {
         });
       },
 
-      updatePUT: (body) => {
+      updatePUT: (body, id) => {
         return new Promise((resolve, reject) => {
           bcrypt.genSalt(10, function (err, salt) {
-            //   const {id} =req.params;
+              // const {id} =req.params;
             const { password } = body;
             bcrypt.hash(password, salt, function (err, hashedPassword) {
               const newBody = { ...body, password: hashedPassword };
               if (err) {
                 reject(err);
               }
-              // const query = 
-              db.query(`UPDATE profile SET? WHERE id = ${id}`,query, newBody, (err, data) => {
+              // const query= `UPDATE profile SET? WHERE id = ${id}`;
+              db.query(`UPDATE profile SET? WHERE id = ${id}`, newBody, (err, data) => {
                 if (!err) {
                   resolve(newBody);
                 } else {
@@ -86,10 +86,10 @@ const userModel = {
         return new Promise((resolve, reject) => {
           // bcrypt.genSalt(10, function (err, salt) {
             // const {id} =param
-              const query = `DELETE * FROM profile WHERE id =?`;
+              const query = `DELETE FROM profile WHERE id =?`;
               db.query(query,setData, (err, data) => {
                 if (!err) {
-                  resolve(newBody);
+                  resolve(data);
                 } else {
                   reject(err);
                 }
